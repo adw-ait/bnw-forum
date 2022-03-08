@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./style.css";
 import { data } from "../../data/data";
+import { AppContext, initialValue } from "../../App";
+import { nanoid } from "nanoid";
 
 // TESTING
-const initialValue = {
-  postid: "as6d5421",
-  voteCount: 0,
-  image: "",
-  userid: "asd564654",
-  title: "first post",
-  comments: [],
-};
+// const initialValue = {
+//   postid: "as6d5421",
+//   voteCount: 0,
+//   image: "",
+//   userid: "asd564654",
+//   title: "first post",
+//   comments: [],
+// };
 
 function CreatePost() {
+  const { createPost } = useContext(AppContext);
   const [caption, setcaption] = useState("");
 
   const handleCaptionChange = (e) => {
@@ -21,8 +24,8 @@ function CreatePost() {
 
   const handleSubmitPost = (e) => {
     e.preventDefault();
-    const newPost = { ...initialValue, title: caption };
-    const updatePosts = [...data, newPost];
+    const newPost = { title: caption };
+    createPost(newPost);
   };
 
   return (
