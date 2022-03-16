@@ -1,8 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./style.css";
-import { data } from "../../data/data";
-import { AppContext, initialValue } from "../../App";
-import { nanoid } from "nanoid";
+import { AppContext } from "../../App";
 
 // TESTING
 // const initialValue = {
@@ -37,14 +35,15 @@ function CreatePost() {
         value={caption}
         onChange={(e) => handleCaptionChange(e)}
         className=" w-full rounded-md p-1 px-2"
+        required={true}
       />
-      <input
+      {/* <input
         type="file"
         name=""
         id=""
         title=" "
         className="custom-file-input"
-      />
+      /> */}
       <button
         className=" border-black px-3 bg-white rounded-md"
         onClick={(e) => handleSubmitPost(e)}

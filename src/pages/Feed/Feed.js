@@ -1,13 +1,16 @@
 import { data } from "../../data/data";
-import React from "react";
+import React, { useContext } from "react";
 import Post from "../../components/post/Post";
+import { AppContext } from "../../App";
 
 function Feed() {
+  const { postStore } = useContext(AppContext);
   return (
     <div>
-      {data.map((post) => {
-        return <Post data={post} />;
-      })}
+      {postStore &&
+        postStore.map((post) => {
+          return <Post post={post} />;
+        })}
     </div>
   );
 }

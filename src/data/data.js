@@ -10,11 +10,11 @@ export const data = [
     comments: [
       {
         commentuserid: "98461321",
-        commentreply: "tujhye aai chi gand",
+        commentreply: "Good",
       },
       {
         commentuserid: "9845612",
-        commentreply: "tujhye aai chi gand",
+        commentreply: "Great",
       },
     ],
   },
@@ -29,11 +29,11 @@ export const data = [
     comments: [
       {
         commentuserid: "98461321",
-        commentreply: "tujhye aai chi gand",
+        commentreply: "good",
       },
       {
         commentuserid: "9845612",
-        commentreply: "tujhye aai chi gand",
+        commentreply: "great",
       },
     ],
   },
@@ -47,11 +47,11 @@ export const data = [
     comments: [
       {
         commentuserid: "98461321",
-        commentreply: "tujhye aai chi gand",
+        commentreply: "good",
       },
       {
         commentuserid: "9845612",
-        commentreply: "tujhye aai chi gand",
+        commentreply: "great",
       },
     ],
   },
@@ -65,11 +65,11 @@ export const data = [
     comments: [
       {
         commentuserid: "98461321",
-        commentreply: "tujhye aai chi gand",
+        commentreply: "good",
       },
       {
         commentuserid: "9845612",
-        commentreply: "tujhye aai chi gand",
+        commentreply: "great",
       },
     ],
   },
