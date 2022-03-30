@@ -13,7 +13,6 @@ export const initialValue = {
     votes: "0",
     imageUrl: "",
     title: "",
-    postId: "",
     authorId: "", // create if not already present, store in localstorage
     comments: [],
   },
@@ -26,9 +25,7 @@ function App() {
     getAllPosts();
   }, []);
 
-  // TODO : CREATE POST
-
-  // create new user
+  //!* create new user
   const assignUserId = () => {
     if (!localStorage.getItem("userid")) {
       const userid = nanoid();
@@ -39,7 +36,7 @@ function App() {
     return userid;
   };
 
-  // CREATE POST
+  //!* CREATE POST
   const createPost = async (postDetails) => {
     if (postDetails.title.length === 0) {
       console.log("no title");
@@ -55,7 +52,7 @@ function App() {
     }
   };
 
-  // TODO : GET POSTS
+  // !* : GET POSTS
   const getAllPosts = async () => {
     const querySnapshot = await getDocs(collection(db, "posts"));
     // setpostStore(querySnapshot);
@@ -79,7 +76,7 @@ function App() {
     // setpostStore(updatedStore);
   };
 
-  // TODO : VOTES
+  //!* VOTES
   const votesHandler = async (voteData) => {
     const { id, currentVotes, voteType } = voteData;
     const postDocRef = doc(db, "posts", `${id}`);
@@ -113,7 +110,7 @@ function App() {
     await getAllPosts();
   };
 
-  // TODO : ADD COMMENT
+  //!* ADD COMMENT
   const addComment = async (commentData) => {
     const { id, comments, commentText } = commentData;
 

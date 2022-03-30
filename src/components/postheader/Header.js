@@ -15,7 +15,11 @@ function Header(props) {
     <>
       <div className="postheader flex flex-row pb-3">
         <span className="image">
-          <img src={post.imageUrl} alt="" />
+          <img
+            className="object-contain max-h-32 max-w-xl"
+            src={post.imageUrl}
+            alt=""
+          />
         </span>
         <div className="caption flex flex-col p-4">
           <div className="userid">
