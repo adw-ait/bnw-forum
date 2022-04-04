@@ -1,4 +1,3 @@
-import { data } from "../../data/data";
 import React, { useContext } from "react";
 import Post from "../../components/post/Post";
 import { AppContext } from "../../App";

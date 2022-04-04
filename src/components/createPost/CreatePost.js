@@ -73,7 +73,7 @@ function CreatePost() {
     }
     const file = imageFile;
     console.log(`IMAGE FILE : ${imageFile}`);
-    const imageUuid = nanoid();
+    const imageUuid = nanoid(5);
     const storageRef = ref(storage, `/images/${imageUuid}`);
     await uploadBytes(storageRef, file).then((snapshot) => {
       console.log("Uploaded a blob or file!\n");
@@ -103,7 +103,7 @@ function CreatePost() {
   };
 
   return (
-    <>
+    <div>
       <form className="border-black flex p-2 justify-evenly gap-5 bg-slate-400 rounded-xl">
         <input
           type="text"
@@ -129,7 +129,7 @@ function CreatePost() {
         </button>
       </form>
       {imageError ? <h3>File size too big</h3> : ""}
-    </>
+    </div>
   );
 }
 

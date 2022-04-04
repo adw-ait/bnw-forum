@@ -10,12 +10,14 @@ function Post(props) {
     <div
       key={post.id}
       className="flex flex-row border max-w-5xl m-5 rounded-lg p-1 bg-white text-sm "
+      // className="flex max-w-5xl m-5  text-sm "
     >
+      {/* <div className="flex bg-white rounded-lg p-1"> */}
       {/* VOTES - START */}
       <Votes post={post} />
       {/* VOTES - END */}
 
-      <div className="content flex flex-col p-2">
+      <div className="content flex flex-col p-2 w-full">
         {/* HEADER - START*/}
         <Header post={post} />
         {/* HEADER - END */}
@@ -24,6 +26,7 @@ function Post(props) {
         <Comments post={post} />
         {/* COMMENTS - END */}
       </div>
+      {/* </div> */}
     </div>
   );
 }

@@ -21,6 +21,7 @@ export const initialValue = {
 function App() {
   const [postStore, setpostStore] = useState([]);
 
+  //!* GET ALL POSTS ON FIRST VISIT
   useEffect(() => {
     getAllPosts();
   }, []);
@@ -28,7 +29,7 @@ function App() {
   //!* create new user
   const assignUserId = () => {
     if (!localStorage.getItem("userid")) {
-      const userid = nanoid();
+      const userid = nanoid(5);
       localStorage.setItem("userid", userid);
       return userid;
     }
@@ -38,6 +39,8 @@ function App() {
 
   //!* CREATE POST
   const createPost = async (postDetails) => {
+    // const createdOn = await db.firestore.Timestamp.fromDate(new Date());
+    // console.log(createdOn);
     if (postDetails.title.length === 0) {
       console.log("no title");
     } else {
@@ -46,6 +49,7 @@ function App() {
         ...initialValue.CREATEPOST,
         ...postDetails,
         authorId,
+        // createdOn,
       };
       await addDocument(newPost);
       await getAllPosts();
@@ -66,19 +70,55 @@ function App() {
   };
 
   // TODO : GET SINGLE POST
-  const getOnePost = async (docId) => {
-    // const docRef = doc(db, "posts", `${docId}`);
-    // const newData = await getDoc(docRef);
-    // console.log(postIndex);
-    const postIndex = postStore.map((dat) => dat.id).indexOf(docId);
+  // const getOnePost = async (docId) => {
+  //   // const docRef = doc(db, "posts", `${docId}`);
+  //   // const newData = await getDoc(docRef);
+  //   // console.log(postIndex);
+  //   const postIndex = postStore.map((dat) => dat.id).indexOf(docId);
 
-    // const updatedStore = [...postStore, { id: newData.id, ...newData.data() }];
-    // setpostStore(updatedStore);
-  };
+  //   // const updatedStore = [...postStore, { id: newData.id, ...newData.data() }];
+  //   // setpostStore(updatedStore);
+  // };
 
   //!* VOTES
+  //!* VOTES VALIDATER
+  const votesValidater = (postID) => {
+    const sesssionUpvoteStore = JSON.parse(
+      sessionStorage.getItem("upvoteByUser")
+    );
+    const userID = assignUserId();
+
+    if (!sesssionUpvoteStore) {
+      console.log(`session storage is empty`);
+      const userVotes = {
+        [userID]: [postID],
+      };
+
+      // console.log(sesssionUpvoteStore);
+      sessionStorage.setItem("upvoteByUser", JSON.stringify(userVotes));
+      return true;
+    }
+    if (sesssionUpvoteStore[userID].includes(postID)) {
+      console.log(sesssionUpvoteStore[userID].includes(postID));
+      return false;
+    } else {
+      sesssionUpvoteStore[userID].push(postID);
+      sessionStorage.setItem(
+        "upvoteByUser",
+        JSON.stringify(sesssionUpvoteStore)
+      );
+      return true;
+    }
+  };
+
+  // !* UPDATE VOTES IN FIREBASE
   const votesHandler = async (voteData) => {
     const { id, currentVotes, voteType } = voteData;
+
+    if (!votesValidater(id)) {
+      return;
+    }
+
     const postDocRef = doc(db, "posts", `${id}`);
 
     switch (voteType) {
