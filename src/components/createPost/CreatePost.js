@@ -16,7 +16,7 @@ import { nanoid } from "nanoid";
 // };
 
 const initialValue = {
-  imageFile: {},
+  imageFile: null,
   caption: "",
 };
 
@@ -68,11 +68,15 @@ function CreatePost() {
   };
 
   const addImageToFirebase = async () => {
+    // console.log(`OG FILE : `, typeof imageFile);
+    // console.log(`IMAGE FILE LENGTH : `, Object.keys(imageFile).length);
     if (!imageFile) {
       return "";
     }
     const file = imageFile;
-    console.log(`IMAGE FILE : ${imageFile}`);
+    // console.log(`VALID FILE : \n`, file);
+    // return file;
+    // console.log(`IMAGE FILE : ${imageFile}`);
     const imageUuid = nanoid(5);
     const storageRef = ref(storage, `/images/${imageUuid}`);
     await uploadBytes(storageRef, file).then((snapshot) => {
@@ -93,13 +97,24 @@ function CreatePost() {
 
   const handleSubmitPost = async (e) => {
     e.preventDefault();
+    // console.log(imageFile.length);
     const imageUrl = await addImageToFirebase();
-    console.log(imageUrl);
+    console.log(`IMAGE URL : `, imageUrl);
     const newPost = { title: caption, imageUrl: imageUrl };
-    console.log(newPost);
+    // // console.log(newPost);
     await createPost(newPost);
     setImageFile(initialValue.imageFile);
     setcaption(initialValue.caption);
+  };
+
+  // TEST CODES
+  const testSubmitPost = (e) => {
+    e.preventDefault();
+    if (imageFile.length) {
+      console.log(true);
+    } else {
+      console.log(false);
+    }
   };
 
   return (
@@ -124,6 +139,7 @@ function CreatePost() {
         <button
           className=" border-black px-3 bg-white rounded-md"
           onClick={(e) => handleSubmitPost(e)}
+          // onClick={(e) => testSubmitPost(e)} //TEST SUBMIT POST
         >
           Post
         </button>
