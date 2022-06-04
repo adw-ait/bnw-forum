@@ -3,8 +3,17 @@ import Feed from "./pages/Feed/Feed";
 import CreatePost from "./components/createPost/CreatePost";
 import { addDocument } from "./utils";
 import { nanoid } from "nanoid";
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "./firebase-config";
+import CreatePostButton from "./components/createPost/CreatePostButton";
 
 export const AppContext = React.createContext();
 
@@ -20,10 +29,16 @@ export const initialValue = {
 
 function App() {
   const [postStore, setpostStore] = useState([]);
+  const [postModal, setpostModal] = useState(false);
+
+  // !* OPEN CREATE POST MODAL
+
+  const openCreatePost = () => {};
 
   //!* GET ALL POSTS ON FIRST VISIT
   useEffect(() => {
     getAllPosts();
+    document.title = "Biz"
   }, []);
 
   //!* create new user
@@ -39,7 +54,7 @@ function App() {
 
   //!* CREATE POST
   const createPost = async (postDetails) => {
-    // const createdOn = await db.firestore.Timestamp.fromDate(new Date());
+    // const createdOn = await ;
     // console.log(createdOn);
     if (postDetails.title.length === 0) {
       console.log("no title");
@@ -49,7 +64,7 @@ function App() {
         ...initialValue.CREATEPOST,
         ...postDetails,
         authorId,
-        // createdOn,
+        createdAt: serverTimestamp(),
       };
       await addDocument(newPost);
       await getAllPosts();
@@ -58,7 +73,7 @@ function App() {
 
   // !* : GET POSTS
   const getAllPosts = async () => {
-    const querySnapshot = await getDocs(collection(db, "posts"));
+    const querySnapshot = await getDocs(query(collection(db, "posts")));
     // setpostStore(querySnapshot);
     let tempArray = [];
     querySnapshot.forEach((doc) => {
@@ -173,12 +188,15 @@ function App() {
   };
 
   return (
-    <AppContext.Provider
-      value={{ createPost, postStore, votesHandler, addComment }}
-    >
-      <CreatePost />
-      <Feed />
-    </AppContext.Provider>
+    <div className="mx-5">
+      <AppContext.Provider
+        value={{ createPost, postStore, votesHandler, addComment }}
+      >
+        {/* <CreatePost /> */}
+        {/* <CreatePostButton /> */}
+        <Feed />
+      </AppContext.Provider>
+    </div>
   );
 }
 

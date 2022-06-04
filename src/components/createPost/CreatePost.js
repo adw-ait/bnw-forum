@@ -118,7 +118,34 @@ function CreatePost() {
   };
 
   return (
-    <div>
+    <>
+      {/* <div className="postModalBg"></div> */}
+      {/* <div className="card flex-col bg-gray-400 p-3 rounded-lg"> */}
+      {/* <span className="font-bold">Create Post</span>
+        <div className="inputBox my-2 w-full">
+          <textarea
+            className="rounded-lg p-2 w-full"
+            type="text"
+            placeholder="Caption"
+          />
+        </div>
+        <div className="footerButtons flex justify-between px-1">
+          <input
+            className="uploadFile"
+            type="file"
+            name=""
+            accept="image/*"
+            onChange={(e) => handleImageChange(e)}
+            id=""
+          /> */}
+      {/* <button className="uploadImage bg-white px-1 py-0.5 rounded-md">
+          upload
+        </button> */}
+      {/* <button className="submitPost bg-white px-1 py-0.5 rounded-md">
+            submit
+          </button> */}
+      {/* </div> */}
+      {/* </div> */}
       <form className="border-black flex p-2 justify-evenly gap-5 bg-slate-400 rounded-xl">
         <input
           type="text"
@@ -145,7 +172,8 @@ function CreatePost() {
         </button>
       </form>
       {imageError ? <h3>File size too big</h3> : ""}
-    </div>
+      {/* </div> */}
+    </>
   );
 }
 
